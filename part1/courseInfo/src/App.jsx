@@ -4,13 +4,19 @@ const Header = (props) => {
     <h1>{props.course}</h1>
   )
 }
+const Part = (props) => {
+  //console.log(`This is being rendered`);
+  return(
+    <p>{props.contentName} {props.numOfExercises}</p>
+  )
+}
 
 const Content = (props) => {
   return(
     <div>
-      <p>{props.part1} {props.exercises1}</p>
-      <p>{props.part2} {props.exercises2}</p>
-      <p>{props.part3} {props.exercises3}</p>
+     <Part contentName={props.part1} numOfExercises={props.exercises1} />
+     <Part contentName={props.part2} numOfExercises={props.exercises2} />
+     <Part contentName={props.part3} numOfExercises={props.exercises3} />
     </div>
   )
 }
