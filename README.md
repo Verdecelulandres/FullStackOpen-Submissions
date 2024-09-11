@@ -6,10 +6,10 @@ part0
     0.4
     ...
 part1
-    1.1
+    courseInfo
     ...
 part2
-    2.1
+    phonebook
     ...
 ```
 
