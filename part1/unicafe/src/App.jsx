@@ -1,6 +1,18 @@
 import { useState } from "react"
 
-const DisplayTotal = ({text, amount}) => <p>{text}: {amount}</p>
+const DisplayStatistics =({good, bad, neutral})=>{
+  const total = good + bad + neutral;
+  return(
+    <div>
+      <p>All: {total}</p>
+      <p>Average: {total/3}</p>
+      <p>Positive: {total=== 0 ? 0 : (good/total) * 100} %</p>
+    </div>
+    
+  )
+
+}
+const DisplayAmount = ({text, amount}) => <p>{text}: {amount}</p>
 
 const FeedbackBtn = ({increaseFeedback, text}) => <button onClick={()=>increaseFeedback(text)}>{text}</button>
 
@@ -35,9 +47,10 @@ const App = () => {
       <FeedbackBtn increaseFeedback={increaseFeedback} text={'neutral'} />
       <FeedbackBtn increaseFeedback={increaseFeedback} text={'bad'} />
       <h2>Statistics</h2>
-      <DisplayTotal text='good' amount={good}/>
-      <DisplayTotal text='neutral' amount={neutral}/>
-      <DisplayTotal text='bad' amount={bad}/>
+      <DisplayAmount text='good' amount={good}/>
+      <DisplayAmount text='neutral' amount={neutral}/>
+      <DisplayAmount text='bad' amount={bad}/>
+      <DisplayStatistics good={good} bad={bad} neutral={neutral} />
     </div>
   )
 
