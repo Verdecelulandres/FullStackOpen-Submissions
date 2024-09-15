@@ -1,19 +1,20 @@
 import { useState } from "react"
 
-const DisplayStatistics =({good, bad, neutral})=>{
+const Statistics =({good, bad, neutral})=>{
   const total = good + bad + neutral;
   return(
     <div>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <hr />
       <p>All: {total}</p>
-      <p>Average: {total/3}</p>
+      <p>Average: {(good-bad)/total}</p>
       <p>Positive: {total=== 0 ? 0 : (good/total) * 100} %</p>
     </div>
     
   )
-
 }
-const DisplayAmount = ({text, amount}) => <p>{text}: {amount}</p>
-
 const FeedbackBtn = ({increaseFeedback, text}) => <button onClick={()=>increaseFeedback(text)}>{text}</button>
 
 const App = () => {
@@ -47,10 +48,7 @@ const App = () => {
       <FeedbackBtn increaseFeedback={increaseFeedback} text={'neutral'} />
       <FeedbackBtn increaseFeedback={increaseFeedback} text={'bad'} />
       <h2>Statistics</h2>
-      <DisplayAmount text='good' amount={good}/>
-      <DisplayAmount text='neutral' amount={neutral}/>
-      <DisplayAmount text='bad' amount={bad}/>
-      <DisplayStatistics good={good} bad={bad} neutral={neutral} />
+      <Statistics good={good} bad={bad} neutral={neutral} />
     </div>
   )
 
