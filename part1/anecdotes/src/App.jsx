@@ -1,5 +1,15 @@
 import { useState } from "react";
-//const Button = ({generateRandomNumber, text}) => <button onClick={generateRandomNumber}>{text}</button>
+
+const AnecdoteBlock = ({title, anecdote, pointVal}) => {
+  return(
+    <div>
+      <h2>{title}</h2>
+      <p>{anecdote}</p>
+      <p>Has {pointVal} votes</p>
+    </div>
+  )
+}
+
 const App = () =>{
 
   const anecdotes = [
@@ -28,12 +38,25 @@ const App = () =>{
     setPoints(nextPoints);
   }
 
+  const displayMostVoted = () =>{
+    /*let maxIndex = 0;
+    let maxVal = 0;
+    for(let i = 0; i<points.length; i++){
+      if(points[i] > max) {
+        max = i;
+      }
+    }*/
+    const max = points.indexOf(Math.max(...points));
+    console.log(max);
+    return anecdotes[max];
+  }
+
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>Has {points[selected]} votes</p>
+      <AnecdoteBlock title={'Anecdote of the day'} anecdote={anecdotes[selected]} pointVal={points[selected]} /> 
       <button onClick={voteUp}>vote</button>
       <button onClick={generateRandomNumber}>Next Anecdote</button>
+      <AnecdoteBlock title={'Anecdote with most votes'} anecdote={displayMostVoted()} pointVal={Math.max(...points)} />
     </div>
   )
 }
