@@ -2,6 +2,11 @@ import { useState } from "react"
 
 const Statistics =({good, bad, neutral})=>{
   const total = good + bad + neutral;
+  if(total=== 0) {
+    return(
+      <div>No feedback given</div>
+    )
+  }
   return(
     <div>
       <p>Good: {good}</p>
@@ -10,9 +15,9 @@ const Statistics =({good, bad, neutral})=>{
       <hr />
       <p>All: {total}</p>
       <p>Average: {(good-bad)/total}</p>
-      <p>Positive: {total=== 0 ? 0 : (good/total) * 100} %</p>
+      <p>Positive: {(good/total) * 100} %</p>
     </div>
-    
+  
   )
 }
 const FeedbackBtn = ({increaseFeedback, text}) => <button onClick={()=>increaseFeedback(text)}>{text}</button>
