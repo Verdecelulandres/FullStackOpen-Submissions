@@ -21,28 +21,25 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    const newPerson = {name: newName};
+    const newPerson = {name: newName, phone: newPhone};
     setPersons(persons.concat(newPerson));
     setNewName('');
   }
   //Change input handler
-  const handleNameChange = (event) =>{
-    console.log(event.target.value);
-    setNewName(event.target.value);
-  }
-  const handlePhoneChange = (event) =>{
-    console.log(event.target.value);
-    setNewPhone(event.target.value);
+  const handleInputChange = (event) =>{
+    event.target.name === 'name' ? setNewName(event.target.value) : setNewPhone(event.target.value);
+   //console.log(event.target.name);
+   // console.log(event.target.value);
   }
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={handleNameChange}/>
+          name: <input name="name" value={newName} onChange={handleInputChange}/>
         </div>
         <div>
-          phone: <input value={newPhone} onChange={handlePhoneChange}/>
+          phone: <input name="phone" value={newPhone} onChange={handleInputChange}/>
         </div>
         <div>
           <button type="submit">add</button>
