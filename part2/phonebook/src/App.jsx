@@ -7,9 +7,16 @@ const App = () => {
   ]); 
   const [newName, setNewName] = useState('');
 
+  //Returns true if any entry is duplicate, case insensitive
+  const checkDuplicate = (newEntry) => persons.some((person) => JSON.stringify(person.name.toLowerCase()) === JSON.stringify(newEntry.toLowerCase()))
+
   //Submit form handler
   const addPerson = (event) =>{
     event.preventDefault();
+    if(checkDuplicate(newName)) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
     const newPerson = {name: newName};
     setPersons(persons.concat(newPerson));
     setNewName('');
