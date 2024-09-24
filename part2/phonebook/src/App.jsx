@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Contacts from './components/Contacts';
+import NewContact from './components/NewContact';
+import Filter from './components/Filter';
 
 const App = () => {
   //state variables
@@ -15,7 +18,6 @@ const App = () => {
   //Returns true if any entry is duplicate, case insensitive
   const checkDuplicate = (newEntry) => { 
     return persons.some((person) => JSON.stringify(person.name.toLowerCase()) === JSON.stringify(newEntry.toLowerCase()) || JSON.stringify(person.phone) === JSON.stringify(newEntry)) 
-
   }
 
   //Submit form handler
@@ -46,23 +48,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      Search a name: <input name="filter" value={filtername} onChange={handleInputChange}/>
+      <Filter filtername={filtername} handleInputChange={handleInputChange}/>
       <h2>Add a new contact</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input name="name" value={newName} onChange={handleInputChange}/>
-        </div>
-        <div>
-          phone: <input name="phone" value={newPhone} onChange={handleInputChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <NewContact addPerson={addPerson} handleInputChange={handleInputChange} newName={newName} newPhone={newPhone}/>
       <h2>Numbers</h2>
-      {persons.filter(person => person.name.toLowerCase().includes(filtername.toLowerCase())).map(person => <p key={person.id}>{person.name}: {person.phone}</p>)}
+      <Contacts persons={persons} filtername={filtername} />
     </div>
   )
 }
-
+//{persons.filter(person => person.name.toLowerCase().includes(filtername.toLowerCase())).map(person => <p key={person.id}>{person.name}: {person.phone}</p>)}
 export default App;
