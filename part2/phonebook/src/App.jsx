@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filtername, setFilterName] = useState('');
 
+  //Gets the data from the server async. Is invoked when the page rendered for the 1st time
   useEffect(()=>{
     console.log('Effect triggered. Means page finished rendering');
     axios.get('http://localhost:3001/persons').then(response => {
@@ -45,8 +46,7 @@ const App = () => {
     } else {
       setFilterName(event.target.value);
     }
-   //console.log(event.target.name);
-   // console.log(event.target.value);
+
   }
 
   return (
@@ -60,11 +60,5 @@ const App = () => {
     </div>
   )
 }
-//{persons.filter(person => person.name.toLowerCase().includes(filtername.toLowerCase())).map(person => <p key={person.id}>{person.name}: {person.phone}</p>)}
-export default App;
 
-// Original data
-// { name: 'Arto Hellas', phone: '040-123456', id: 1 },
-//     { name: 'Ada Lovelace', phone: '39-44-5323523', id: 2 },
-//     { name: 'Dan Abramov', phone: '12-43-234345', id: 3 },
-//     { name: 'Mary Poppendieck', phone: '39-23-6423122', id: 4 }
+export default App;
