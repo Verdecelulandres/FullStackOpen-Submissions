@@ -1,6 +1,6 @@
-const ContactDetails = ({name, phone}) => <p>{name}: {phone}</p>
+const ContactDetails = ({name, number}) => <p>{name}: {number}</p>
 const Contacts = ({persons, filtername}) => {
-    return (persons.filter(person => person.name.toLowerCase().includes(filtername.toLowerCase())).map(person => <ContactDetails key={person.id} name={person.name} phone={person.phone}/>))
+    return (persons.filter(person => person.name.toLowerCase().includes(filtername.toLowerCase())).map(person => <ContactDetails key={person.id} name={person.name} number={person.number}/>))
 }
 
 export default Contacts;
