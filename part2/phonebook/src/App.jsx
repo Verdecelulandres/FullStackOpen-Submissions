@@ -30,6 +30,7 @@ const App = () => {
     event.preventDefault();
     if(checkDuplicate(newName)|| checkDuplicate(newNumber)) {
       alert(`${newName} is already added to phonebook`);
+      setNewName('');
       return;
     }
     const newPerson = {name: newName, number: newNumber} ;
@@ -60,7 +61,12 @@ const App = () => {
     const personToDelete = persons.find(p => p.id === id).name;
     console.log(`This should delete the contact with id ${id}`);
     if(window.confirm(`This will delete ${personToDelete} is that okay?`)){
-      contactService.deleteContact(id).then(console.log('Delete Fulfilled'));
+      contactService.deleteContact(id).then(response => {
+        console.log('Delete Fulfilled');
+        console.log(response);
+        //Create a new array filtering the recently delted contact id out
+        setPersons(persons.filter(p => p.id !== id));
+      });
     }
   }
 
