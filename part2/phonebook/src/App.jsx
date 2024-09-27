@@ -32,12 +32,13 @@ const App = () => {
     if(newName === "" || newNumber === "") {
       return;
     }
-    const newPerson = {name: newName, number: newNumber} ;
+    const newFormattedName = formatName(newName);
+    const newPerson = {name: newFormattedName, number: newNumber} ;
 
     //We want to update the number of an existing contact using the put method
-    if(checkDuplicate(newName)) {
-      if(window.confirm(`Replace ${newName} number to ${newNumber} ?`)){
-        const updateId = persons.find(p => p.name === newName).id
+    if(checkDuplicate(newFormattedName)) {
+      if(window.confirm(`Replace ${newFormattedName} number to ${newNumber} ?`)){
+        const updateId = persons.find(p => p.name === newFormattedName).id
         console.log(`Id of the contact to be replaced: ${updateId}`);
         contactService.updateContact(updateId, newPerson)
           .then(response => {
@@ -50,7 +51,6 @@ const App = () => {
       }
       return;
     }
-
     //Adding a new contact to the server. This returns the newly added contact in the response data
     contactService.addNewContact(newPerson)
       .then(response => {
@@ -71,6 +71,20 @@ const App = () => {
       setFilterName(event.target.value);
     }
 
+  }
+
+  //function to ensure New names are added in a certain format
+  const formatName = (name) =>{
+    let newName = name.toLowerCase().trim();
+    newName = name.charAt(0).toUpperCase() + newName.substring(1);
+    //We scan the string to capitalize the letter after each space found
+    for(let i = 1; i<newName.length; i++) {
+      if(newName.charAt(i) === ' '){
+        newName = newName.substring(0, i+1) + newName.charAt(i+1).toUpperCase() + (i+2 >= newName.length ? '' : newName.substring(i+2))
+      }
+    }
+    console.log(newName);
+    return newName;
   }
 
   //delete contacts
