@@ -33,9 +33,15 @@ const App = () => {
       return;
     }
     const newPerson = {name: newName, number: newNumber, id: persons.length + 1} ;
-    setPersons(persons.concat(newPerson));
-    setNewName('');
-    setNewNumber('');
+    //Adding a new contact to the server. This returns the newly added contact in the response data
+    axios.post('http://localhost:3001/persons', newPerson)
+      .then(response => {
+        console.log('post promise fulfilled');
+        setPersons(persons.concat(response.data));
+        setNewName('');
+        setNewNumber('');
+      })
+    
   }
   //Change input handler
   const handleInputChange = (event) =>{
