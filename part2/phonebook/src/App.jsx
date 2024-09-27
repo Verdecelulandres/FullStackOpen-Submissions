@@ -31,6 +31,11 @@ const App = () => {
     if(checkDuplicate(newName)|| checkDuplicate(newNumber)) {
       alert(`${newName} is already added to phonebook`);
       setNewName('');
+      setNewNumber('');
+      return;
+    }
+    //This ensures we cant add a just a name or just a phone
+    if(newName === "" || newNumber === "") {
       return;
     }
     const newPerson = {name: newName, number: newNumber} ;
