@@ -32,7 +32,7 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    const newPerson = {name: newName, number: newNumber, id: persons.length + 1} ;
+    const newPerson = {name: newName, number: newNumber} ;
     //Adding a new contact to the server. This returns the newly added contact in the response data
     contactService.addNewContact(newPerson)
       .then(response => {
