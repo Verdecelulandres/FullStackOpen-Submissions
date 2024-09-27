@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios';
+import contactService from './services/contacts';
 import Contacts from './components/Contacts';
 import NewContact from './components/NewContact';
 import Filter from './components/Filter';
@@ -13,9 +13,9 @@ const App = () => {
 
   //Gets the data from the server async. Is invoked when the page rendered for the 1st time
   useEffect(()=>{
-    console.log('Effect triggered. Means page finished rendering');
-    axios.get('http://localhost:3001/persons').then(response => {
-      console.log('Response fulfilled');
+    //console.log('Effect triggered. Means page finished rendering');
+    contactService.getContacts().then(response => {
+      console.log('Get response fulfilled');
       setPersons(response.data);
     })
   },[])
@@ -34,7 +34,7 @@ const App = () => {
     }
     const newPerson = {name: newName, number: newNumber, id: persons.length + 1} ;
     //Adding a new contact to the server. This returns the newly added contact in the response data
-    axios.post('http://localhost:3001/persons', newPerson)
+    contactService.addNewContact(newPerson)
       .then(response => {
         console.log('post promise fulfilled');
         setPersons(persons.concat(response.data));
