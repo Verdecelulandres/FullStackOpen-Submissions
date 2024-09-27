@@ -55,6 +55,12 @@ const App = () => {
 
   }
 
+  //delete contacts
+  const deleteTargetContact = (id) => {
+    console.log(`This should delete the contact with id ${id}`);
+  }
+
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -62,7 +68,8 @@ const App = () => {
       <h2>Add a new contact</h2>
       <NewContact addPerson={addPerson} handleInputChange={handleInputChange} newName={newName} newNumber={newNumber}/>
       <h2>Numbers</h2>
-      <Contacts persons={persons} filtername={filtername} />
+      {/**We only pass the reference to the deletecontact function because we want to send the execution to the component that maps the contacts */}
+      <Contacts persons={persons} filtername={filtername} deleteContact={deleteTargetContact}/>
     </div>
   )
 }
