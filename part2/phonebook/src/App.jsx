@@ -57,7 +57,11 @@ const App = () => {
 
   //delete contacts
   const deleteTargetContact = (id) => {
+    const personToDelete = persons.find(p => p.id === id).name;
     console.log(`This should delete the contact with id ${id}`);
+    if(window.confirm(`This will delete ${personToDelete} is that okay?`)){
+      contactService.deleteContact(id).then(console.log('Delete Fulfilled'));
+    }
   }
 
 
