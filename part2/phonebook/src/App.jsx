@@ -28,17 +28,29 @@ const App = () => {
   //Submit form handler
   const addPerson = (event) =>{
     event.preventDefault();
-    if(checkDuplicate(newName)|| checkDuplicate(newNumber)) {
-      alert(`${newName} is already added to phonebook`);
-      setNewName('');
-      setNewNumber('');
-      return;
-    }
     //This ensures we cant add a just a name or just a phone
     if(newName === "" || newNumber === "") {
       return;
     }
     const newPerson = {name: newName, number: newNumber} ;
+
+    //We want to update the number of an existing contact using the put method
+    if(checkDuplicate(newName)) {
+      if(window.confirm(`Replace ${newName} number to ${newNumber} ?`)){
+        const updateId = persons.find(p => p.name === newName).id
+        console.log(`Id of the contact to be replaced: ${updateId}`);
+        contactService.updateContact(updateId, newPerson)
+          .then(response => {
+            console.log('Put Fulfilled');
+            //Set the contacts with the response data if the id matches, if not just copy the element
+            setPersons(persons.map(p=> p.id === updateId ? response.data : p));
+            setNewName('');
+            setNewNumber('');
+          })
+      }
+      return;
+    }
+
     //Adding a new contact to the server. This returns the newly added contact in the response data
     contactService.addNewContact(newPerson)
       .then(response => {
