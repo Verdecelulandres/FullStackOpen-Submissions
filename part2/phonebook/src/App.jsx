@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import contactService from './services/contacts';
+import Notification from './components/Notification';
 import Contacts from './components/Contacts';
 import NewContact from './components/NewContact';
 import Filter from './components/Filter';
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filtername, setFilterName] = useState('');
+  const [noticeMessage, setNoticeMessage] = useState('');
 
   //Gets the data from the server async. Is invoked when the page rendered for the 1st time
   useEffect(()=>{
@@ -105,6 +107,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={noticeMessage}/>
       <Filter filtername={filtername} handleInputChange={handleInputChange}/>
       <h2>Add a new contact</h2>
       <NewContact addPerson={addPerson} handleInputChange={handleInputChange} newName={newName} newNumber={newNumber}/>
