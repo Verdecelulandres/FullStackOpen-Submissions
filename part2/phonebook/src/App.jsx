@@ -11,7 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filtername, setFilterName] = useState('');
-  const [noticeMessage, setNoticeMessage] = useState('');
+  const [noticeMessage, setNoticeMessage] = useState(null);
 
   //Gets the data from the server async. Is invoked when the page rendered for the 1st time
   useEffect(()=>{
@@ -57,9 +57,13 @@ const App = () => {
     contactService.addNewContact(newPerson)
       .then(response => {
         console.log('post promise fulfilled');
+        setNoticeMessage(`${newPerson.name} was added to your contacts`);
         setPersons(persons.concat(response.data));
         setNewName('');
         setNewNumber('');
+        setTimeout(()=> {
+          setNoticeMessage(null);
+        }, 5000);
       })
     
   }
