@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filtername, setFilterName] = useState('');
   const [noticeMessage, setNoticeMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   //Gets the data from the server async. Is invoked when the page rendered for the 1st time
   useEffect(()=>{
@@ -50,6 +51,16 @@ const App = () => {
             setNewName('');
             setNewNumber('');
           })
+          .catch(error => {
+            console.log('Error catched!');
+            setIsError(true);
+            setNoticeMessage(`${newFormattedName} was already deleted from the server :(`);
+            setTimeout(()=>{
+              setIsError(false);
+              setNoticeMessage(null);
+            }, 5000);
+          })
+          setPersons(persons.filter(p => p.name !== newFormattedName));
       }
       return;
     }
@@ -111,7 +122,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={noticeMessage}/>
+      <Notification error={isError} message={noticeMessage}/>
       <Filter filtername={filtername} handleInputChange={handleInputChange}/>
       <h2>Add a new contact</h2>
       <NewContact addPerson={addPerson} handleInputChange={handleInputChange} newName={newName} newNumber={newNumber}/>
