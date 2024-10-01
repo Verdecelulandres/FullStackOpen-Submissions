@@ -45,10 +45,14 @@ const App = () => {
     
   }
 
+  const showCountry = () => {
+    //TODO: Change the filteredArray to only have 1 value
+  }
+
   return(
     <div>
      <Filter filterCountries={handleFilterCountries}/>
-     <CountryList filteredCountries={filteredCountries} />
+     <CountryList filteredCountries={filteredCountries} showCountry={showCountry}/>
      <CountryDetails filteredCountries={filteredCountries}/>
     </div>
   )
