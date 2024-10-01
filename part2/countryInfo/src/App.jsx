@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import country from "./services/country";
 import Filter from "./components/Filter";
 import CountryList from "./components/CountryList.jsx";
+import CountryDetails from "./components/CountryDetails.jsx";
 
 const App = () => {
   //Array to hold the API response
@@ -48,6 +49,7 @@ const App = () => {
     <div>
      <Filter filterCountries={handleFilterCountries}/>
      <CountryList filteredCountries={filteredCountries} />
+     <CountryDetails filteredCountries={filteredCountries}/>
     </div>
   )
 }
