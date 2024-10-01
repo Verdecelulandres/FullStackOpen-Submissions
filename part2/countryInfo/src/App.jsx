@@ -2,6 +2,8 @@
 //Since the info is not too large, I decided to start the app by loading everything into the state and then filtering accordingly 
 import { useState, useEffect } from "react";
 import country from "./services/country";
+import Filter from "./components/Filter";
+import CountryList from "./components/CountryList.jsx";
 
 const App = () => {
   //Array to hold the API response
@@ -22,12 +24,12 @@ const App = () => {
   }, []);
 
   //Use only for debugging: See which countries are getting filtered
-  useEffect(()=>{
-    console.log('inside filtered countries useeffect');
-    filteredCountries.map( c => console.log(c.name.common));
-  }, [filteredCountries]);
+  // useEffect(()=>{
+  //   console.log('inside filtered countries useeffect');
+  //   filteredCountries.map( c => console.log(c.name.common));
+  // }, [filteredCountries]);
 
-  const filterCountries = (event) =>{
+  const handleFilterCountries = (event) =>{
     if(countries.lenght === 0) {
       return;
     }
@@ -44,10 +46,8 @@ const App = () => {
 
   return(
     <div>
-     Find Countries: <input onChange={filterCountries}/>
-     <ul>
-      {filteredCountries.length >10 ? <li>Too many matches. Please continue typing the country name</li> : filteredCountries.map(c=> <li key={c.cca2}>{c.name.common}</li>)}
-     </ul>
+     <Filter filterCountries={handleFilterCountries}/>
+     <CountryList filteredCountries={filteredCountries} />
     </div>
   )
 }
