@@ -1,15 +1,24 @@
 //This app shows info abput all the countries in the world.
 //Since the info is not too large, I decided to start the app by loading everything into the state and then filtering accordingly 
-
 import { useState, useEffect } from "react";
+import country from "./services/country";
+
 const App = () => {
   //Array to hold the API response
   const [countries, setCountries] = useState([]);
   //Value to keep track of the country to search for in the input element
   const [countrySearch, setCountrySearch] = useState('');
+  const [filteredCountries, setFilteredCountries] = useState ([]); 
 
   useEffect(() => {
-    
+    country.getAllCountries().then(response => {
+      console.log('Got All countries');
+      setCountries(response.data)
+    })
+    .catch(error => {
+      console.log(error);
+      alert('There was a problem, please refresh the page');
+    });
   }, []);
   return(
     <div>
