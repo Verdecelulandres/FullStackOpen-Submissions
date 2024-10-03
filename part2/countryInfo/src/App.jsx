@@ -39,14 +39,19 @@ const App = () => {
       console.log('Search input is empty, resetting the filtered array');
       setFilteredCountries([]);
     } else {
-      console.log(`search input: ${searchInput}`);
+      //console.log(`search input: ${searchInput}`);
     setFilteredCountries(countries.filter(c => c.name.common.toLowerCase().includes(searchInput)));  
     }
     
   }
 
-  const showCountry = () => {
+  const showCountry = (cName) => {
     //TODO: Change the filteredArray to only have 1 value
+    console.log(`This would show details for country: ${cName}`);
+    const singleCountry = []
+    singleCountry.push(filteredCountries.find(c => c.name.common === cName));
+    // console.log(singleCountry);
+    setFilteredCountries(singleCountry);
   }
 
   return(

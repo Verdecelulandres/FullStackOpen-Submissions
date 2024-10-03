@@ -7,7 +7,7 @@ const CountryList = ({filteredCountries, showCountry}) => {
         <ul>
             {filteredCountries.length >10 ? <li>Too many matches. Please continue typing the country name</li> : filteredCountries.map((c, index)=> {
                    return( <li key={c.cca3}>
-                        <span key={c.cca2}>{c.name.common}</span> <button onClick={showCountry} key={index}>show</button>
+                        <span key={c.cca2}>{c.name.common}</span> <button onClick={() => showCountry(c.name.common)} key={index}>show</button>
                     </li>)
                 })}
        </ul>
